@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6270543156845965448}
   - component: {fileID: 8882808585868373622}
   - component: {fileID: 8939290080547866830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BotPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
