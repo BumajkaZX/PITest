@@ -22,4 +22,9 @@ public class BotEntity
     {
         movement.MoveToTarget(agent, target);
     }
+
+    public void Attack(IDamagable target, float damage)
+    {
+        attack.Attack(target, damage);
+    }
 }

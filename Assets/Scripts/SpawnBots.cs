@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.AI;
 
-public class SpawnBots : MonoBehaviour
+public class SpawnBots : MonoBehaviour, IPoolRelease
 {
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private BotParametersSettings _botSettings;
@@ -38,9 +38,18 @@ public class SpawnBots : MonoBehaviour
             var facade = new BotEntity(attack, movement, param);
             obj.AddComponent<Pointer>();
             var bot = obj.AddComponent<Bot>();
+            bot.Pool = this;
             bot.SetEntity(facade);
             bot.SetParameters();
         }
+    }
+    public void PoolRelease(GameObject objectToRelease)
+    {
+        Destroy(objectToRelease.GetComponent<NavMeshAgent>());
+        Destroy(objectToRelease.GetComponent<Pointer>());
+        Destroy(objectToRelease.GetComponent<Bot>());
+        _pool.Release(objectToRelease);
+
     }
 }
 

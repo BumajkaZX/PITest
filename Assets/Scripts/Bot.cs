@@ -7,9 +7,12 @@ public class Bot : MonoBehaviour, IDamagable
 {
     const int skipFramesNavMeshUpdate = 50;
 
+    public IPoolRelease Pool { get; set; }
+
     [SerializeField] private float _hp;
     [SerializeField] private float _damage;
     [SerializeField] private float _speed;
+    [SerializeField] private float _damageRange;
     [SerializeField] private Transform _enemy;
 
     private BotEntity entity;
@@ -24,6 +27,7 @@ public class Bot : MonoBehaviour, IDamagable
         _hp = par.HP;
         _damage = par.Damage;
         _speed = par.Speed;
+        _damageRange = par.DamageRange;
     }
     [ContextMenu("Find Target")]
     public void SetEnemy()
@@ -40,6 +44,10 @@ public class Bot : MonoBehaviour, IDamagable
     }
     private void Update()
     {
+        if(_hp <= 0)
+        {
+            Pool.PoolRelease(gameObject);
+        }
         if (_enemy != null)
         {
             if (updateIterator == skipFramesNavMeshUpdate)
@@ -50,6 +58,15 @@ public class Bot : MonoBehaviour, IDamagable
             if (!_enemy.gameObject.activeSelf)
             {
                 SetEnemy();
+            }
+            if((_enemy.position - gameObject.transform.position).magnitude <= _damageRange)
+            {
+                var enemy = _enemy.gameObject.GetComponent<Bot>();
+                entity.Attack(enemy, _damage);
+                if(enemy.GetHP() <= 0)
+                {
+                    _enemy = null;
+                }
             }
             updateIterator++;
         }

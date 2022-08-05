@@ -6,6 +6,7 @@ public class BotParametersSettings : MonoBehaviour
     public float Speed { get => Random.Range(_minSpeed, _maxSpeed); }
     public float Damage { get => Random.Range(_minDamage, _maxDamage); }
     public float HP { get => Random.Range(_minHp, _maxHp); }
+    public float DamageRange { get => _damageRange; }
 
     [SerializeField] private float _minSpeed;
     [SerializeField] private float _maxSpeed;
@@ -13,6 +14,7 @@ public class BotParametersSettings : MonoBehaviour
     [SerializeField] private float _maxDamage;
     [SerializeField] private float _minHp;
     [SerializeField] private float _maxHp;
+    [SerializeField] private float _damageRange;
 }
 [CustomEditor(typeof(BotParametersSettings))]
 public class BotParametersEditor : Editor
@@ -23,6 +25,7 @@ public class BotParametersEditor : Editor
     SerializedProperty maxDamage;
     SerializedProperty minHp;
     SerializedProperty maxHp;
+    SerializedProperty damageRange;
     private void OnEnable()
     {
         minSpeed = serializedObject.FindProperty("_minSpeed");
@@ -31,7 +34,7 @@ public class BotParametersEditor : Editor
         maxDamage = serializedObject.FindProperty("_maxDamage");
         minHp = serializedObject.FindProperty("_minHp");
         maxHp = serializedObject.FindProperty("_maxHp");
-
+        damageRange = serializedObject.FindProperty("_damageRange");
     }
     public override void OnInspectorGUI()
     {
@@ -54,6 +57,7 @@ public class BotParametersEditor : Editor
         EditorGUILayout.PropertyField(minHp, GUIContent.none);
         EditorGUILayout.PropertyField(maxHp, GUIContent.none);
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.PropertyField(damageRange);
         serializedObject.ApplyModifiedProperties();
     }
 }
