@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class UserController : MonoBehaviour
 {
+    /*
+     * Class for user input (bot spawn)
+    */
     [SerializeField] private LayerMask _zoneMask;
     [SerializeField] private SpawnBots spawn;
     private Camera _camera;

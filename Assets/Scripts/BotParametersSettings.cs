@@ -2,7 +2,10 @@ using UnityEngine;
 using UnityEditor;
 
 public class BotParametersSettings : MonoBehaviour
-{
+{   
+    /*
+     * class for random bot parameters
+    */
     public float Speed { get => Random.Range(_minSpeed, _maxSpeed); }
     public float Damage { get => Random.Range(_minDamage, _maxDamage); }
     public float HP { get => Random.Range(_minHp, _maxHp); }
@@ -16,6 +19,7 @@ public class BotParametersSettings : MonoBehaviour
     [SerializeField] private float _maxHp;
     [SerializeField] private float _damageRange;
 }
+#if UNITY_EDITOR
 [CustomEditor(typeof(BotParametersSettings))]
 public class BotParametersEditor : Editor
 {
@@ -61,3 +65,4 @@ public class BotParametersEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

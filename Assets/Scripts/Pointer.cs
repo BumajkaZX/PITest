@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
+    /*
+     * 
+     * Class for bot target point
+     * 
+    */
     private IDamagable targerBot;
     public Transform FindTarget()
     {

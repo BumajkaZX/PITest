@@ -4,6 +4,7 @@ using TMPro;
 
 public class Bot : MonoBehaviour, IDamagable, IScore
 {
+    #region parameters
     const int skipFramesNavMeshUpdate = 50;
 
     public IPoolRelease Pool { get; set; }
@@ -20,7 +21,7 @@ public class Bot : MonoBehaviour, IDamagable, IScore
     private BotEntity _entity;
     private int _updateIterator;
     private int _targetKilled;
-
+    #endregion
     private void Awake()
     {
         GameManager.score.Add(this);
@@ -57,6 +58,7 @@ public class Bot : MonoBehaviour, IDamagable, IScore
         if(_hp <= 0)
         {
             GameManager.score.Remove(this);
+            GameManager.UpdateScore();
             Pool.PoolRelease(gameObject);
         }
         if (_enemy != null)

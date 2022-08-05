@@ -8,6 +8,7 @@ using UnityEngine.Animations;
 
 public class SpawnBots : MonoBehaviour, IPoolRelease
 {
+    #region parameters
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private BotParametersSettings _botSettings;
     [SerializeField] private GameObject _botPrefab;
@@ -15,8 +16,10 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
     [SerializeField] private int _numOfSpawn;
     [SerializeField] private int _maxBots;
     [SerializeField] private float _offsetY;
+
     private ObjectPool<GameObject> _pool;
 
+    #endregion
     private void Awake()
     {
         _pool = new ObjectPool<GameObject>(() =>
@@ -24,6 +27,7 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
         _botPrefab => { _botPrefab.gameObject.SetActive(true); },
         _botPrefab => { _botPrefab.gameObject.SetActive(false); },
         _botPrefab => { Destroy(_botPrefab); }, true, _maxBots, _maxBots);
+        Spawn();
     }
     public void Spawn()
     {
@@ -68,7 +72,7 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
         bot.SetParameters();
     }
 }
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(SpawnBots))]
 public class SpawnBotsEditor : Editor
 {
@@ -85,3 +89,4 @@ public class SpawnBotsEditor : Editor
         }
     }
 }
+#endif
