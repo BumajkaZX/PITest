@@ -4,12 +4,15 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.AI;
+using TMPro;
+using UnityEngine.Animations;
 
 public class SpawnBots : MonoBehaviour, IPoolRelease
 {
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private BotParametersSettings _botSettings;
     [SerializeField] private GameObject _botPrefab;
+    [SerializeField] private Camera _camera;
     [SerializeField] private int _numOfSpawn;
     [SerializeField] private int _maxBots;
     [SerializeField] private float _offsetY;
@@ -27,20 +30,9 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
     {
         for(int i = 0; i < _numOfSpawn; i++)
         {
-            var obj = _pool.Get();
             var index = Random.Range(0, _spawnPoints.Count);
             var pos = _spawnPoints[index].position;
-            obj.transform.position = new Vector3(pos.x, pos.y + _offsetY, pos.z);
-            obj.AddComponent<NavMeshAgent>();
-            var attack = new BotAttack();
-            var movement = new BotMovement();
-            var param = new BotParameters(_botSettings);
-            var facade = new BotEntity(attack, movement, param);
-            obj.AddComponent<Pointer>();
-            var bot = obj.AddComponent<Bot>();
-            bot.Pool = this;
-            bot.SetEntity(facade);
-            bot.SetParameters();
+            SpawnBot(pos);
         }
     }
     public void PoolRelease(GameObject objectToRelease)
@@ -50,6 +42,31 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
         Destroy(objectToRelease.GetComponent<Bot>());
         _pool.Release(objectToRelease);
 
+    }
+    public void SpawnBot(Vector3 posToSpawn)
+    {
+        var obj = _pool.Get();
+        obj.transform.position = new Vector3(posToSpawn.x, posToSpawn.y + _offsetY, posToSpawn.z);
+        var canvas = obj.GetComponentInChildren<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = _camera;
+        var lookAt = canvas.GetComponent<LookAtConstraint>();
+        ConstraintSource source = new ConstraintSource();
+        source.sourceTransform = _camera.transform;
+        source.weight = 1;
+        lookAt.AddSource(source);
+        var text = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        obj.AddComponent<NavMeshAgent>();
+        var attack = new BotAttack();
+        var movement = new BotMovement();
+        var param = new BotParameters(_botSettings);
+        var facade = new BotEntity(attack, movement, param);
+        obj.AddComponent<Pointer>();
+        var bot = obj.AddComponent<Bot>();
+        bot.UI = text;
+        bot.Pool = this;
+        bot.SetEntity(facade);
+        bot.SetParameters();
     }
 }
 
