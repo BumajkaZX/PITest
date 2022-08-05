@@ -36,6 +36,7 @@ public class SpawnBots : MonoBehaviour
             var movement = new BotMovement();
             var param = new BotParameters(_botSettings);
             var facade = new BotEntity(attack, movement, param);
+            obj.AddComponent<Pointer>();
             var bot = obj.AddComponent<Bot>();
             bot.SetEntity(facade);
             bot.SetParameters();
