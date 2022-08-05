@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class SpawnBots : MonoBehaviour
 {
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
+    [SerializeField] private BotParametersSettings _botSettings;
     [SerializeField] private GameObject _botPrefab;
     [SerializeField] private int _numOfSpawn;
     [SerializeField] private int _maxBots;
@@ -31,6 +32,13 @@ public class SpawnBots : MonoBehaviour
             var pos = _spawnPoints[index].position;
             obj.transform.position = new Vector3(pos.x, pos.y + _offsetY, pos.z);
             obj.AddComponent<NavMeshAgent>();
+            var attack = new BotAttack();
+            var movement = new BotMovement();
+            var param = new BotParameters(_botSettings);
+            var facade = new BotEntity(attack, movement, param);
+            var bot = obj.AddComponent<Bot>();
+            bot.SetEntity(facade);
+            bot.SetParameters();
         }
     }
 }

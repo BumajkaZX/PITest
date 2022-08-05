@@ -2033,9 +2033,10 @@ MonoBehaviour:
   - {fileID: 1437635655}
   - {fileID: 47116399}
   - {fileID: 1587176227}
+  _botSettings: {fileID: 2054649440}
   _botPrefab: {fileID: 2044951723135232685, guid: b1ab9ede0bdbdd04486c0c981f0fd752, type: 3}
-  _numOfSpawn: 2
-  _maxBots: 10
+  _numOfSpawn: 4
+  _maxBots: 20
   _offsetY: 1
 --- !u!1 &1244889644
 GameObject:
@@ -3451,12 +3452,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81756f55bd8d62248811af5c7536690e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSpeed: 0
-  _maxSpeed: 0
-  _minDamage: 0
-  _maxDamage: 0
-  _minHp: 0
-  _maxHp: 0
+  _minSpeed: 1
+  _maxSpeed: 2
+  _minDamage: 10
+  _maxDamage: 20
+  _minHp: 100
+  _maxHp: 150
 --- !u!4 &2054649441
 Transform:
   m_ObjectHideFlags: 0
