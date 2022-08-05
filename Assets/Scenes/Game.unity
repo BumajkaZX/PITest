@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43424192, g: 0.4811309, b: 0.56203675, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1333,7 +1333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2402,8 +2401,8 @@ MonoBehaviour:
   _botSettings: {fileID: 2054649440}
   _botPrefab: {fileID: 2044951723135232685, guid: b1ab9ede0bdbdd04486c0c981f0fd752, type: 3}
   _camera: {fileID: 946703723}
-  _numOfSpawn: 4
-  _maxBots: 20
+  _numOfSpawn: 20
+  _maxBots: 100
   _offsetY: 1
 --- !u!1 &1244889644
 GameObject:

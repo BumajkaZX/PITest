@@ -4,6 +4,9 @@ public class BotMovement
 {
     public void MoveToTarget(NavMeshAgent agent, Transform targetTransform)
     {
-        agent.SetDestination(targetTransform.position);
+        if (agent.isActiveAndEnabled) 
+        {
+            agent.SetDestination(targetTransform.position);
+        }
     }
 }

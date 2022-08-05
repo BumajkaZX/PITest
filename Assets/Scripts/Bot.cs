@@ -63,7 +63,7 @@ public class Bot : MonoBehaviour, IDamagable, IScore
         }
         if (_enemy != null)
         {
-            if (_updateIterator == skipFramesNavMeshUpdate && _enemy.gameObject.activeSelf)
+            if (_updateIterator == skipFramesNavMeshUpdate)
             {
                 _entity.MoveToTarget(GetComponent<NavMeshAgent>(), _enemy);
                 _updateIterator = 0;
