@@ -9,7 +9,6 @@ public class Pointer : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, 200, 1 << gameObject.layer);
         List<Collider> listColliders = new List<Collider>(colliders);
         listColliders.Remove(gameObject.GetComponent<Collider>());
-        print(listColliders.Count);
         if (listColliders.Count > 0)
         {
             var index = Random.Range(0, listColliders.Count);

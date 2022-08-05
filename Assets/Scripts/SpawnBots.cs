@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -24,7 +23,7 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
         { return Instantiate(_botPrefab); },
         _botPrefab => { _botPrefab.gameObject.SetActive(true); },
         _botPrefab => { _botPrefab.gameObject.SetActive(false); },
-        _botPrefab => { Destroy(_botPrefab); }, false, _maxBots, _maxBots);
+        _botPrefab => { Destroy(_botPrefab); }, true, _maxBots, _maxBots);
     }
     public void Spawn()
     {
@@ -41,11 +40,11 @@ public class SpawnBots : MonoBehaviour, IPoolRelease
         Destroy(objectToRelease.GetComponent<Pointer>());
         Destroy(objectToRelease.GetComponent<Bot>());
         _pool.Release(objectToRelease);
-
     }
     public void SpawnBot(Vector3 posToSpawn)
     {
         var obj = _pool.Get();
+        obj.name = $"Bot: {_pool.CountActive}";
         obj.transform.position = new Vector3(posToSpawn.x, posToSpawn.y + _offsetY, posToSpawn.z);
         var canvas = obj.GetComponentInChildren<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
