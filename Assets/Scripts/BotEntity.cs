@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BotEntity 
 {
@@ -17,5 +17,9 @@ public class BotEntity
     public BotParameters GetParameters()
     {
         return parameters;
+    }
+    public void MoveToTarget(NavMeshAgent agent, Transform target)
+    {
+        movement.MoveToTarget(agent, target);
     }
 }
